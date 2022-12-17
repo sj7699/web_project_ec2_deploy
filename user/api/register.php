@@ -6,7 +6,7 @@
     //헤더 Cors json
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
-    header('Access-Control-Allow-Methods: POST');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
     include_once '../../config/Database.php';
     include_once '../model/User.php';
