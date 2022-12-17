@@ -119,5 +119,9 @@
     $mail_content.="수령인 ".$data_arr["recipient"]."<br>요청사항 ".$data_arr["detail"]."<br><br>";
     header("HTTP/1.1 201");
     echo(json_encode(array("message"=>"Order Accepted")));
-    $mymailer->send($data_arr["email_address"],$mail_subject,$mail_content);
+    if($mymailer->send($data_arr["email_address"],$mail_subject,$mail_content)){
+        echo "TT";
+    }else{
+        echo "FF";
+    }
 
