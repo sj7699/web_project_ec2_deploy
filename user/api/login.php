@@ -96,7 +96,7 @@
      $log_login->create($log_data_arr);
      if($is_login_success){      
         //로그인시 토큰 발행
-        $Token = $jwt->hashing(array("id"=>$data_arr["id"],"exp"=>time()+3600,"grade"=>$now_user_arr["grade"]));
+        $Token = $jwt->hashing(array("id"=>$data_arr["id"],"exp"=>time()+90000,"grade"=>$now_user_arr["grade"]));
         header("HTTP/1.1 200");
         echo(json_encode(array("message"=> "login success")));
         setcookie('JWT',$Token,time()+90000,"/");

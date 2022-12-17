@@ -21,6 +21,9 @@
 
         public function __construct(){
             $this->phpmailer = new PHPMailer;
+            $this->phpmailer->IsSMTP();
+            $this->phpmailer->SMTPAuth=$this->SMTPAuth;
+            $this->phpmailer->SMTPSecure=$this->SMTPSecure;
             $this->phpmailer->Host = $this->Host;
             $this->phpmailer->port = $this->port;
             $this->phpmailer->Username = $this->Username;
