@@ -27,7 +27,9 @@
     if(!isset($_GET["post_id"])){
         header("HTTP/1.1 400");
         echo(json_encode(array("message" => "no query string post_id")));
+        exit;
     }
+    $data_arr["post_id"]=$_GET["post_id"];
     //게시물조회에 필요한 정보있는지 체크
     $user_need_info = array("post_id");
     foreach($user_need_info as $arr_key){
