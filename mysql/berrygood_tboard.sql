@@ -28,7 +28,7 @@ CREATE TABLE `tboard` (
   `writer` int NOT NULL,
   `visit` int NOT NULL,
   PRIMARY KEY (`_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

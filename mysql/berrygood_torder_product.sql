@@ -29,7 +29,7 @@ CREATE TABLE `torder_product` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `torder_product_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `torder_user` (`_id`) ON DELETE CASCADE,
   CONSTRAINT `torder_product_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `tproduct` (`_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
