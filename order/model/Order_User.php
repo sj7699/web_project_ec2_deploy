@@ -31,6 +31,14 @@
             return $stmt;
         }
 
+        //자신의 주문 보기
+        public function read_customer($user_id){
+            $query = "SELECT * FROM ".$this->table." where user_id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":user_id",$user_id);
+            $stmt->execute();
+        }
+
         //특정 주문 상세 보기
         public function read_specific($data_arr){
             $query = "SELECT * FROM ".$this->table." where created_at >= :start_time order by created_at desc";
