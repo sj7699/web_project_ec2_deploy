@@ -74,7 +74,7 @@
                 'author' => $id,
                 'content' => html_entity_decode($content),
                 'category' => $category,
-                'created_at' => $created_at
+                'created_at' => ddate("Y-m-d",$created_at)
             );
             echo json_encode($post_item);
             exit;

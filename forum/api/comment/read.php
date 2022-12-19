@@ -55,7 +55,7 @@
                 '_id' => $_id,
                 'author' => $id,
                 'content' => html_entity_decode($content),
-                'created_at' => $created_at
+                'created_at' => date("Y-m-d",$created_at)
             );
 
             array_push($comments_arr,$comment_item);

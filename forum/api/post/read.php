@@ -39,7 +39,7 @@
                 'title' => $title,
                 'author' => $id,
                 'category' => $category,
-                'created_at' => $created_at
+                'created_at' => date("Y-m-d",$created_at)
             );
 
             array_push($posts_arr['data'],$post_item);
