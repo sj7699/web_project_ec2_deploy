@@ -51,14 +51,18 @@
 
         //특정 주문 생성
         public function create($data_arr){
-            $query = "INSERT INTO ".$this->table."(user_id,created_at,detail,address,phone_number,recipient) VALUES(:user_id,:created_at,:detail,:address,:phone_number,:recipient)";
+            $query = "INSERT INTO ".$this->table."(user_id,created_at,recipientAddr,ordererMessage,recipientPhone,delivery_state,recipientName,recipientAddrDetail,recipientPost,recipientEmail) VALUES(:user_id,:created_at,:recipientAddr,:ordererMessage,:recipientPhone,:delivery_state,:recipientName,:recipientAddrDetail,:recipientPost,:recipientEmail)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":user_id",$data_arr["user_id"]);
             $stmt->bindValue(":created_at",time());
-            $stmt->bindValue(":detail",$data_arr["detail"]);
-            $stmt->bindValue(":address",$data_arr["address"]);
-            $stmt->bindValue(":phone_number",$data_arr["phone_number"]);
-            $stmt->bindValue(":recipient",$data_arr["recipient"]);
+            $stmt->bindValue(":recipientAddr",$data_arr["recipientAddr"]);
+            $stmt->bindValue(":ordererMessage",$data_arr["ordererMessage"]);
+            $stmt->bindValue(":recipientPhone",$data_arr["recipientPhone"]);
+            $stmt->bindValue(":delivery_state","입금대기");
+            $stmt->bindValue(":recipientName",$data_arr["recipientName"]);
+            $stmt->bindValue(":recipientAddrDetail",$data_arr["recipientAddrDetail"]);
+            $stmt->bindValue(":recipientPost",$data_arr["recipientPost"]);
+            $stmt->bindValue(":recipientEmail",$data_arr["recipientEmail"]);
             $stmt->execute();
             return $this->conn->lastInsertId();
         }

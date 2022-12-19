@@ -16,11 +16,12 @@
         }
 
         //특정 주문-제품 생성
-        public function create($order_id,$product_id){
-            $query = "INSERT INTO ".$this->table."(order_id,product_id) VALUES(:order_id,:product_id)";
+        public function create($order_id,$product_id,$num){
+            $query = "INSERT INTO ".$this->table."(order_id,product_id,num) VALUES(:order_id,:product_id,:num)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":order_id",$order_id);
             $stmt->bindValue(":product_id",$product_id);
+            $stmt->bindValue(":num",$num);
             $stmt->execute();
         }
 

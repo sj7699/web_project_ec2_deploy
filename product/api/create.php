@@ -29,7 +29,7 @@
     }
 
     //제품 생성시 필요한 정보있는지 체크
-    $user_need_info = array("name","category","detail","weight","price");
+    $user_need_info = array("name","category","detail","weight","price","image");
     foreach($user_need_info as $arr_key){
         if(!array_key_exists($arr_key,$data_arr)){
             header("HTTP/1.1 400");

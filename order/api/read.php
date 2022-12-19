@@ -87,8 +87,9 @@
     //유저정보받기
     while ( $row = $now_user->fetch( PDO::FETCH_ASSOC ) ){  
         $data_arr["user_id"]=$row["_id"];
-        $data_arr["email_address"]=$row["email"];
-        $data_arr["name"]=$row["name"];
+        $data_arr["ordererEmail"]=$row["email"];
+        $data_arr["ordererName"]=$row["name"];
+        $data_arr["ordererPhone"]=$row["phone_number"];
     }
 
     //주문 금액 받기
@@ -108,17 +109,21 @@
         $posts_arr['data'] = array();
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             $post_item= array(
-                'order_id'=>$row["_id"],
+                'orderNumber'=>$row["_id"],
                 'created_at'=>date("Y-m-d",$row["created_at"]),
-                'detail'=>$row["detail"],
-                'address'=>$row["address"],
-                'phone_number'=>$row["phone_number"],
-                'recipient'=>$row["recipient"],
-                "delivery_state"=>$row["delivery_state"]
+                'ordererMessage'=>$row["ordererMessage"],
+                'recipientAddr'=>$row["recipientAddr"],
+                'recipientPhone'=>$row["recipientPhone"],
+                'recipientName'=>$row["recipientName"],
+                "delivery_state"=>$row["delivery_state"],
+                "recipientPost"=>$row["recipientPost"],
+                "recipientEmail"=>$row["recipientEmail"]
+
             );
-            $product_result = $Order_Product->getpricebyorderid($row["_id"]);
+            $post_item["total_price"]=0;
+            $product_result = $Order_Product->getproductbyorderid($row["_id"]);
             while($row2 = $product_result->fetch(PDO::FETCH_ASSOC)){
-                $post_item["total_price"]=$row2["SUM(b.price)"];
+                $post_item["total_price"]+=$row2["price"];
             }
             array_push($posts_arr['data'],$post_item);
         }

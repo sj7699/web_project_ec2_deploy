@@ -24,6 +24,15 @@
             $stmt->bindValue(":id",$id);
             $stmt->execute();
             return $stmt;
+        }      
+        
+        //제품 전체 조회
+        public function getbyname($name){
+            $query =  "SELECT * FROM ".$this->table." where name = :name";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":name",$name);
+            $stmt->execute();
+            return $stmt;
         }
 
         //제품 전체 조회
@@ -86,7 +95,7 @@
 
         #제품생성(관리자 권한)
         public function create($data_arr){
-            $query= 'INSERT INTO '.$this->table.'(name,category,created_at,detail,weight,price) VALUES(:name,:category,:created_at,:detail,:weight,:price)';
+            $query= 'INSERT INTO '.$this->table.'(name,category,created_at,detail,weight,price,image) VALUES(:name,:category,:created_at,:detail,:weight,:price,:image)';
             $stmt = $this->conn->prepare($query); 
             $stmt->bindValue(':name',$data_arr["name"]);
             $stmt->bindValue(':price',$data_arr['price']);
@@ -94,6 +103,7 @@
             $stmt->bindValue(':detail',$data_arr['detail']);
             $stmt->bindValue(':weight',$data_arr['weight']);
             $stmt->bindValue(':price',$data_arr['price']);
+            $stmt->bindValue(':image',$data_arr['image']);
             $stmt->bindValue(':created_at',time());
             $stmt->execute();
             return true;

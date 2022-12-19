@@ -107,20 +107,22 @@
         $posts_arr['data'] = array();
         foreach($result_arr as $row){
             $post_item= array(
+                'orderNumber'=>$row["_id"],
                 'created_at'=>date("Y-m-d",$row["created_at"]),
-                'detail'=>$row["detail"],
-                'address'=>$row["address"],
-                'phone_number'=>$row["phone_number"],
-                'recipient'=>$row["recipient"],
-                'product_list'=>array()
+                'ordererMessage'=>$row["ordererMessage"],
+                'recipientAddr'=>$row["recipientAddr"],
+                'recipientPhone'=>$row["recipientPhone"],
+                'recipientName'=>$row["recipientName"],
+                "delivery_state"=>$row["delivery_state"],
+                "recipientPost"=>$row["recipientPost"],
+                "recipientEmail"=>$row["recipientEmail"],
+                "product_list"=>array()
             );
-            $product_result = $Order_Product->getpricebyorderid($row["_id"]);
+            $post_item["total_price"]=0;
+            $product_result = $Order_Product->getproductbyorderid($row["_id"]);
             while($row2 = $product_result->fetch(PDO::FETCH_ASSOC)){
-                $post_item["total_price"]=$row2["SUM(b.price)"];
-            }
-            $product_list = $Order_Product->getproductbyorderid($row["_id"]);
-            while($row2 = $product_list->fetch(PDO::FETCH_ASSOC)){
-                array_push($post_item["product_list"],array("name"=>$row2["name"],"price"=>$row2["price"],"weight"=>$row2["weight"],"category"=>$row2["category"]));
+                $post_item["total_price"]+=$row2["price"]*$row2["num"];
+                array_push($post_item["product_list"],array("productName"=>$row2["name"],"productPrice"=>$row2["price"],"img"=>$row2["image"],"productNum"=>$row2["num"]));
             }
 
             array_push($posts_arr['data'],$post_item);
