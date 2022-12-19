@@ -13,7 +13,7 @@
     include_once '../model/Order_Product.php';
     include_once '../../user/model/User.php';
     include_once '../../mail/MyMailer.php';
-    include_once '../../user/model/JWT.php';
+    include_once '../../user/model/Jwt.php';
     include_once '../../product/model/Product.php';
     
     $database = new Database();
@@ -23,7 +23,7 @@
     $Order_User = new Order_User($db);
     $Order_Product = new Order_Product($db);
     $mymailer = new MyMailer();
-    $jwt = new JWT();
+    $jwt = new Jwt();
     $user = new User($db);
     $product = new Product($db);
 
