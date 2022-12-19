@@ -92,6 +92,11 @@
     //주문 금액 받기
     $result = $Order_User->getbyorderid($data_arr["order_id"]);
     $result_arr=$result->fetchall();
+    if(count($result_arr)==0){
+        header("HTTP/1.1 400");
+        echo(json_encode(array("message"=>"No Order")));
+        exit;
+    }
     if($Token["grade"]!=Usergrade::Admin){
         if($result_arr[0]["user_id"]!=$data_arr["user_id"]){
             header("HTTP/1.1 401");
