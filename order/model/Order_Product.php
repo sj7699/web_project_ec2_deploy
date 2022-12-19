@@ -24,10 +24,19 @@
             $stmt->execute();
         }
 
+        //주문번호 - 물건뱉기
+        public function getproductbyorderid($order_id){
+            $query = "SELECT * FROM ".$this->table." AS a INNER JOIN ".$this->ptable." AS b ON a.product_id = b._id WHERE a.order_id = ".$order_id;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;
+        }
+
         //주문번호 - 가격뱉기
         public function getpricebyorderid($order_id){
             $query = "SELECT SUM(b.price) FROM ".$this->table." AS a INNER JOIN ".$this->ptable." AS b ON a.product_id = b._id WHERE a.order_id = ".$order_id;
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
+            return $stmt;
         }
     }

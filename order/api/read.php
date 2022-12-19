@@ -73,6 +73,7 @@
         header("HTTP/1.1 401");
         //추후에 url정해지면 변경
         echo(json_encode(array("message"=>"token expired login needed")));
+        exit;
     }
 
     //아이디 존재 확인
@@ -81,12 +82,23 @@
         header("HTTP/1.1 400");
         echo(json_encode(array("message" => "no user")));
         exit;
+    }  
+    
+    //유저정보받기
+    while ( $row = $now_user->fetch( PDO::FETCH_ASSOC ) ){  
+        $data_arr["user_id"]=$row["_id"];
+        $data_arr["email_address"]=$row["email"];
+        $data_arr["name"]=$row["name"];
     }
+
     //주문 금액 받기
     $order_total_price = 0;
-    $result = $Order_User->read_customer();
+    $result = array();
     if($Token["grade"]==Usergrade::Admin){
-
+        $result = $Order_User->read($data_arr);
+    }
+    else{
+        $result = $Order_User->read_customer($data_arr["user_id"]);
     }
 
     $num = $result->rowCount();
@@ -95,15 +107,19 @@
         $posts_arr = array();
         $posts_arr['data'] = array();
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
-            extract($row);
+            echo $row["_id"]."<br>";
             $post_item= array(
-                'created_at'=>date($created_at),
-                'detail'=>$detail,
-                'address'=>$address,
-                'phone_number'=>$address,
-                'recipient'=>$recpieint
+                'created_at'=>date("Y-m-d",$row["created_at"]),
+                'detail'=>$row["detail"],
+                'address'=>$row["address"],
+                'phone_number'=>$row["phone_number"],
+                'recipient'=>$row["recipient"],
+                "delivery_state"=>$row["delivery_state"]
             );
-
+            $product_result = $Order_Product->getpricebyorderid($row["_id"]);
+            while($row2 = $product_result->fetch(PDO::FETCH_ASSOC)){
+                $post_item["total_price"]=$row2["SUM(b.price)"];
+            }
             array_push($posts_arr['data'],$post_item);
         }
         echo json_encode($posts_arr);

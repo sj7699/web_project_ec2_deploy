@@ -16,10 +16,10 @@
 
         //주문번호로 주문번호 가져오기
         public function getbyorderid($orderid){
-            $query = "SELECT * FROM ".$this->table." where order_id = :order_id";
+            $query = "SELECT * FROM ".$this->table." where _id = :order_id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":order_id",$orderid);
-            $stmt->exectue();
+            $stmt->execute();
             return $stmt;
         }
 
@@ -33,10 +33,11 @@
 
         //자신의 주문 보기
         public function read_customer($user_id){
-            $query = "SELECT * FROM ".$this->table." where user_id = :user_id";
+            $query = "SELECT * FROM ".$this->table." where user_id = :user_id order by created_at desc";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":user_id",$user_id);
             $stmt->execute();
+            return $stmt;
         }
 
         //특정 주문 상세 보기
