@@ -16,6 +16,17 @@
             $this->table='tpost';
             $this->user_table='tuser';
         }
+
+        //게시글 카테고리
+        public function readbycategory($category){
+            $query = "SELECT ".$this->table."._id,".$this->table.".title,".$this->table.".category,".$this->table.".created_at,".$this->user_table.".id,".$this->table.".views FROM ".$this->table." INNER JOIN ".$this->user_table." ON ".$this->table.".user_id = ".$this->user_table."._id where category = :category order by created_at desc;";
+            //$query = "Show tables;";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":category",$category);
+            $stmt->execute();
+            return $stmt;
+        }
+
         //조회수 안올라가는 게시물 가져오기
         public function getpostbyid($post_id){
             $query = "SELECT ".$this->user_table."._id "."FROM ".$this->table." INNER JOIN ".$this->user_table." ON ".$this->table.".user_id = ".$this->user_table."._id where ".$this->table."._id = :post_id";

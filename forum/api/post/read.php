@@ -14,7 +14,13 @@
     $db = $database->connect();
     $method = $_SERVER["REQUEST_METHOD"];
     $post = new POST($db);
-    $result = $post->read();
+    $result=null;
+    if(isset($_GET["category"])){
+        $result = $post->readbycategory($_GET["category"]);
+    }
+    else{
+        $result = $post->read();
+    }
 
     //url 파싱
     $prev_url=$_SERVER['REQUEST_URI'];
@@ -22,7 +28,6 @@
 
 
     $num = $result->rowCount();
-
     if($num>0){
         $posts_arr = array();
         $posts_arr['data'] = array();
