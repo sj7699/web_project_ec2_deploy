@@ -1,8 +1,8 @@
 <?php
     //디버그용 서비스시 반드시 삭제
-    error_reporting(E_ALL);
+    // error_reporting(E_ALL);
 
-    ini_set('display_errors', '1'); 
+    // ini_set('display_errors', '1'); 
     //헤더 Cors json
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');

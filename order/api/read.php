@@ -84,8 +84,10 @@
     }
     //주문 금액 받기
     $order_total_price = 0;
-    if($Token[""])
-    $result = $Order_User->read();
+    $result = $Order_User->read_customer();
+    if($Token["grade"]==Usergrade::Admin){
+
+    }
 
     $num = $result->rowCount();
 
