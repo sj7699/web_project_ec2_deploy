@@ -23,13 +23,13 @@
 
     //post json형태로 받아서 php array로 만들기
     $__rawBody = file_get_contents("php://input"); // json 본문을 불러옴
-    $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
+    // $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
 
-    //post data -> php array
-    $data_arr=array();
-    foreach($__getData as $k=>$v){
-        $data_arr[$k]=$v;
-    }
+    // //post data -> php array
+    // $data_arr=array();
+    // foreach($__getData as $k=>$v){
+    //     $data_arr[$k]=$v;
+    // }
 
     //상품 조회에 필요한 정보 확인
     $user_need_info = array();

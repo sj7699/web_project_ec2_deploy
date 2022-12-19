@@ -1,8 +1,8 @@
 <?php
     //디버그용 서비스시 반드시 삭제
-    error_reporting(E_ALL);
+    // error_reporting(E_ALL);
 
-    ini_set('display_errors', '1'); 
+    // ini_set('display_errors', '1'); 
     //헤더 Cors json
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
@@ -29,11 +29,11 @@
 
     //post json형태로 받아서 php array로 만들기
     $__rawBody = file_get_contents("php://input"); // json 본문을 불러옴
-    $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
-    $data_arr=array();
-    foreach($__getData as $k=>$v){
-        $data_arr[$k]=$v;
-    }
+    // $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
+    // $data_arr=array();
+    // foreach($__getData as $k=>$v){
+    //     $data_arr[$k]=$v;
+    // }
 
     //주문조회에 필요한 정보있는지 체크
     if(!isset($_GET["order_id"])){
