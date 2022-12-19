@@ -30,16 +30,6 @@
         header("HTTP/1.1 400");
         echo(json_encode(array("message" => "need post_id in query string")));
     }
-
-    //게시물조회에 필요한 정보있는지 체크
-    $user_need_info = array("id");
-    foreach($user_need_info as $arr_key){
-        if(!array_key_exists($arr_key,$data_arr)){
-            header("HTTP/1.1 400");
-            echo(json_encode(array("message" => "no ".$arr_key)));
-            exit;
-        }
-    }
     
     //url 파싱
     //$prev_url=$_SERVER['REQUEST_URI'];
