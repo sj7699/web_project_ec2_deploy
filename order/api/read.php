@@ -108,6 +108,7 @@
         $posts_arr['data'] = array();
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             $post_item= array(
+                'order_id'=>$row["_id"],
                 'created_at'=>date("Y-m-d",$row["created_at"]),
                 'detail'=>$row["detail"],
                 'address'=>$row["address"],

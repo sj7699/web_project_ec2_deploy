@@ -107,7 +107,6 @@
         $posts_arr['data'] = array();
         foreach($result_arr as $row){
             $post_item= array(
-                'order_id'=>$row["_id"],
                 'created_at'=>date("Y-m-d",$row["created_at"]),
                 'detail'=>$row["detail"],
                 'address'=>$row["address"],
