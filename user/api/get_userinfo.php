@@ -81,7 +81,7 @@
     //유저 정보 확인
     if($num>0){
         header("HTTP/1.1 200");
-        echo(json_encode($now_user_arr));
+        echo(json_encode(array("name"=>$now_user_arr["name"],"email"=>$now_user_arr["email"],"phone_number"=>$now_user_arr["phone_number"],"address"=>$now_user_arr["address"])));
     }else{
         header("HTTP/1.1 400");
         echo(json_encode(array("message"=>"no user")));
