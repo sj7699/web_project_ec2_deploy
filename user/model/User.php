@@ -133,7 +133,7 @@
         //유저 삭제 (회원 탈퇴?)
         public function delete_user($user_arr){
             $user=$this->get_user_from_id($user_arr);
-            $user_count=user->rowCount();
+            $user_count=$user->rowCount();
             if($user_count<1){
                 return false;
             }
@@ -147,7 +147,7 @@
         //권한 변경
         public function change_grade($grade,$user_arr){       
             $user=$this->get_user_from_id($user_arr);
-            $user_count=user->rowCount();
+            $user_count=$user->rowCount();
             if($user_count<1){
                 return false;
             }

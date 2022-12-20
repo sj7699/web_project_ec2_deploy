@@ -9,11 +9,13 @@
 
     include_once '../../../config/Database.php';
     include_once '../../models/Post.php';
+    include_once '../../models/Comment.php';
     
     $database = new Database();
     $db = $database->connect();
     $method = $_SERVER["REQUEST_METHOD"];
     $post = new POST($db);
+    $comment = new Comment($db);
     $result=null;
     if(isset($_GET["category"])){
         $result = $post->readbycategory($_GET["category"]);
@@ -33,13 +35,21 @@
         $posts_arr['data'] = array();
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             extract($row);
+            $post_id_arr=array();
+            $post_id_arr["post_id"]=$_id;
+            $comment_stmt=$comment->read($post_id_arr);
+            $answer=false;
+            if($comment_stmt->rowCount()>0){
+                $answer=true;
+            }
             $post_item= array(
                 'views' => $views,
                 '_id' => $_id,
                 'title' => $title,
                 'author' => $id,
                 'category' => $category,
-                'created_at' => date("Y-m-d",$created_at)
+                'created_at' => date("Y-m-d",$created_at),
+                'iscomplete' => $answer
             );
 
             array_push($posts_arr['data'],$post_item);
