@@ -21,9 +21,9 @@
         return $ipaddress;
     }
     //디버그용 서비스시 반드시 삭제
-    // error_reporting(E_ALL);
+    error_reporting(E_ALL);
 
-    // ini_set('display_errors', '1'); 
+    ini_set('display_errors', '1'); 
     //헤더 Cors json
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
@@ -97,7 +97,7 @@
      if($is_login_success){      
         //로그인시 토큰 발행
         $Token = $jwt->hashing(array("id"=>$data_arr["id"],"exp"=>time()+90000,"grade"=>$now_user_arr["grade"]));
-        setcookie("JWT",$Token,time()+90000,['path'=>'/','samesite' => 'Lax']);
+        setcookie("JWT",$Token,['expires'=>time()+90000,'path'=>'/','samesite' => 'Lax']);
         header("HTTP/1.1 200");
         echo(json_encode(array("message"=> "login success","JWT"=>$Token)));
      }
