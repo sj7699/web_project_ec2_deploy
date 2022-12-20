@@ -117,6 +117,6 @@
     // $mail_content.="배송지 주소 ".$data_arr["address"]."<br>연락처 ".$data_arr["phone_number"]."<br>";
     // $mail_content.="수령인 ".$data_arr["recipient"]."<br>요청사항 ".$data_arr["detail"]."<br><br>";
     header("HTTP/1.1 201");
-    echo(json_encode(array("message"=>"Order Accepted")));
+    echo(json_encode(array("message"=>"Order Accepted","order_id"=>$result)));
     #$mymailer->send($data_arr["email_address"],$mail_subject,$mail_content)
 
