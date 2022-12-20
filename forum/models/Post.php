@@ -19,7 +19,7 @@
 
         //게시글 카테고리
         public function readbycategory($category,$page_number){
-            $page_str=strval((int)$page_number-1);
+            $page_str=strval(((int)$page_number-1)*5);
             $query = "SELECT ".$this->table."._id,".$this->table.".title,".$this->table.".category,".$this->table.".created_at,".$this->user_table.".id,".$this->table.".views FROM ".$this->table." INNER JOIN ".$this->user_table." ON ".$this->table.".user_id = ".$this->user_table."._id where category = :category order by created_at desc LIMIT ".$page_str.",5";
             //$query = "Show tables;";
             $stmt = $this->conn->prepare($query);
@@ -38,7 +38,7 @@
         }
         //게시글 전체 조회
         public function read($page_number){
-            $page_str=strval((int)$page_number-1);
+            $page_str=strval(((int)$page_number-1)*5);
             $query = "SELECT ".$this->table."._id,".$this->table.".title,".$this->table.".category,".$this->table.".created_at,".$this->user_table.".id,".$this->table.".views FROM ".$this->table." INNER JOIN ".$this->user_table." ON ".$this->table.".user_id = ".$this->user_table."._id order by created_at desc LIMIT ".$page_str.",5";
             //$query = "Show tables;";
             $stmt = $this->conn->prepare($query);
