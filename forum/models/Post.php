@@ -18,11 +18,12 @@
         }
 
         //게시글 카테고리
-        public function readbycategory($category){
-            $query = "SELECT ".$this->table."._id,".$this->table.".title,".$this->table.".category,".$this->table.".created_at,".$this->user_table.".id,".$this->table.".views FROM ".$this->table." INNER JOIN ".$this->user_table." ON ".$this->table.".user_id = ".$this->user_table."._id where category = :category order by created_at desc;";
+        public function readbycategory($category,$page_number){
+            $query = "SELECT ".$this->table."._id,".$this->table.".title,".$this->table.".category,".$this->table.".created_at,".$this->user_table.".id,".$this->table.".views FROM ".$this->table." INNER JOIN ".$this->user_table." ON ".$this->table.".user_id = ".$this->user_table."._id where category = :category order by created_at desc LIMIT 5,:page";
             //$query = "Show tables;";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":category",$category);
+            $stmt->bindValue(":page",$page_number-1);
             $stmt->execute();
             return $stmt;
         }
@@ -36,7 +37,7 @@
             return $stmt;
         }
         //게시글 전체 조회
-        public function read(){
+        public function read($page_number){
             $query = "SELECT ".$this->table."._id,".$this->table.".title,".$this->table.".category,".$this->table.".created_at,".$this->user_table.".id,".$this->table.".views FROM ".$this->table." INNER JOIN ".$this->user_table." ON ".$this->table.".user_id = ".$this->user_table."._id order by created_at desc;";
             //$query = "Show tables;";
             $stmt = $this->conn->prepare($query);

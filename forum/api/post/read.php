@@ -18,12 +18,25 @@
     $comment = new Comment($db);
     $result=null;
     if(isset($_GET["category"])){
-        $result = $post->readbycategory($_GET["category"]);
+        if(isset($_GET["page"])){
+            $result = $post->readbycategory($_GET["category"],$_GET["page"]);
+        }
+        else{
+            header("HTTP/1.1 400");
+            echo(json_encode(array("message"=>"need querystring page")));
+            exit;
+        }
     }
     else{
-        $result = $post->read();
+        if(isset($_GET["page"])){
+            $result = $post->read($_GET["page"]);
+        }
+        else{
+            header("HTTP/1.1 400");
+            echo(json_encode(array("message"=>"need querystring page")));
+            exit;
+        }
     }
-
     //url 파싱
     $prev_url=$_SERVER['REQUEST_URI'];
     $urlarr = explode('/',$prev_url);
