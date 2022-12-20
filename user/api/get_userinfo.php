@@ -28,7 +28,7 @@
     }
 
     //유저수정에 필요한 정보있는지 체크
-    $user_need_info = array("JWT","id","password");
+    $user_need_info = array("JWT");
     foreach($user_need_info as $arr_key){
         if(!array_key_exists($arr_key,$data_arr)){
             header("HTTP/1.1 400");
@@ -68,35 +68,16 @@
         echo(json_encode(array("message"=>"token expired login needed")));
     }
 
-    //jwt 토큰과 현재 아이디 일치 여부 확인
-    if($Token["id"] != $data_arr["id"]){
-        header("HTTP/1.1 401");
-        echo(json_encode(array("message" => "other id's jwt token")));
-        exit;
-    }
-
     //아이디 존재 확인
-    $now_user=$user->get_user_from_id($data_arr);
+    $now_user=$user->get_user_from_id($Token);
     if($now_user->rowCount()!=1){       
         header("HTTP/1.1 400");
         echo(json_encode(array("message" => "no user")));
         exit;
     }   
-    //비밀번호 일치 확인
-    $now_user_arr=null;
-    while ( $row = $now_user->fetch( PDO::FETCH_ASSOC ) ){  
-        $now_pw=$row["password"];
-        $now_user_arr=$row;
-        if(!password_verify($data_arr["password"],$now_pw)){
-            header("HTTP/1.1 400");
-            echo(json_encode(array("message" => "wrong id or password")));
-            exit;
-        }
-     }  
+    $now_user_arr = $now_user->fetchall();
     $num=$now_user->rowCount();
     //응답에서 비밀번호와 db row번호 제외
-    unset($now_user_arr["password"]);
-    unset($now_user_arr["_id"]);
     //유저 정보 확인
     if($num>0){
         header("HTTP/1.1 200");
