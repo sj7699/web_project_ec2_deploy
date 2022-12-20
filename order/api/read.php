@@ -93,7 +93,6 @@
     }
 
     //주문 금액 받기
-    $order_total_price = 0;
     $result = array();
     if($Token["grade"]==Usergrade::Admin){
         $result = $Order_User->read($data_arr);
