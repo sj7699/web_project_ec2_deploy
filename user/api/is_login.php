@@ -21,11 +21,11 @@
 
     //post json형태로 받아서 php array로 만들기
     $__rawBody = file_get_contents("php://input"); // json 본문을 불러옴
-    // $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
-    // $data_arr=array();
-    // foreach($__getData as $k=>$v){
-    //     $data_arr[$k]=$v;
-    // }
+    $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
+    $data_arr=array();
+    foreach($__getData as $k=>$v){
+        $data_arr[$k]=$v;
+    }
 
     //url 파싱
     //$prev_url=$_SERVER['REQUEST_URI'];
@@ -33,15 +33,15 @@
 
 
     //쿠키 확인
-    if(!isset($_COOKIE["JWT"])){
-        header("HTTP/1.1 401");
-        echo(json_encode(array("message"=>"no jwt token")));
-        exit;
-    }
+    // if(!isset($_COOKIE["JWT"])){
+    //     header("HTTP/1.1 401");
+    //     echo(json_encode(array("message"=>"no jwt token")));
+    //     exit;
+    // }
     
     //jwt 토큰 서명 확인
 
-    $cookie=$_COOKIE["JWT"];
+    $cookie=$data_arr["JWT"];
     $Token = $jwt->dehashing($cookie);
 
     //토큰 서명 불일치

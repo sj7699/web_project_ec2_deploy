@@ -29,7 +29,7 @@
     }
 
     //제품 생성시 필요한 정보있는지 체크
-    $user_need_info = array("name","category","detail","weight","price","image");
+    $user_need_info = array("JWT","name","category","detail","weight","price","image");
     foreach($user_need_info as $arr_key){
         if(!array_key_exists($arr_key,$data_arr)){
             header("HTTP/1.1 400");
@@ -43,15 +43,15 @@
     //$urlarr = explode('/',$prev_url);
 
 
-    //쿠키 확인
-    if(!isset($_COOKIE["JWT"])){
-        header("HTTP/1.1 401");
-        echo(json_encode(array("message"=>count($_COOKIE))));
-        exit;
-    }
+    // //쿠키 확인
+    // if(!isset($_COOKIE["JWT"])){
+    //     header("HTTP/1.1 401");
+    //     echo(json_encode(array("message"=>count($_COOKIE))));
+    //     exit;
+    // }
     
     //jwt 토큰 서명 확인
-    $cookie=$_COOKIE["JWT"];
+    $cookie=$data_arr["JWT"];
     $Token = $jwt->dehashing($cookie);
 
     //토큰 서명 불일치

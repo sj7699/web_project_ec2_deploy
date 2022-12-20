@@ -29,14 +29,14 @@
 
     //post json형태로 받아서 php array로 만들기
     $__rawBody = file_get_contents("php://input"); // json 본문을 불러옴
-    // $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
-    // $data_arr=array();
-    // foreach($__getData as $k=>$v){
-    //     $data_arr[$k]=$v;
-    // }
+    $__getData = array(json_decode($__rawBody))[0]; // 데이터를 변수에 넣고
+    $data_arr=array();
+    foreach($__getData as $k=>$v){
+        $data_arr[$k]=$v;
+    }
 
     //주문조회에 필요한 정보있는지 체크
-    $user_need_info = array();
+    $user_need_info = array("JWT");
     foreach($user_need_info as $arr_key){
         if(!array_key_exists($arr_key,$data_arr)){
             header("HTTP/1.1 400");
@@ -50,15 +50,15 @@
 
 
     //쿠키 확인
-    if(!isset($_COOKIE["JWT"])){
-        header("HTTP/1.1 401");
-        echo(json_encode(array("message"=>"no jwt token")));
-        exit;
-    }
+    // if(!isset($_COOKIE["JWT"])){
+    //     header("HTTP/1.1 401");
+    //     echo(json_encode(array("message"=>"no jwt token")));
+    //     exit;
+    // }
     
     //jwt 토큰 서명 확인
 
-    $cookie=$_COOKIE["JWT"];
+    $cookie=$data_arr["JWT"];
     $Token = $jwt->dehashing($cookie);
 
     //토큰 서명 불일치

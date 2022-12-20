@@ -31,7 +31,7 @@
     }
 
     //유저수정에 필요한 정보있는지 체크
-    $user_need_info = array("_id","title","content");
+    $user_need_info = array("_id","title","content","JWT");
     foreach($user_need_info as $arr_key){
         if(!array_key_exists($arr_key,$data_arr)){
             header("HTTP/1.1 400");
@@ -46,15 +46,15 @@
 
 
     //쿠키 확인
-    if(!isset($_COOKIE["JWT"])){
-        header("HTTP/1.1 401");
-        echo(json_encode(array("message"=>"no jwt token")));
-        exit;
-    }
+    // if(!isset($_COOKIE["JWT"])){
+    //     header("HTTP/1.1 401");
+    //     echo(json_encode(array("message"=>"no jwt token")));
+    //     exit;
+    // }
     
     //jwt 토큰 서명 확인
 
-    $cookie=$_COOKIE["JWT"];
+    $cookie=$data_arr["JWT"];
     $Token = $jwt->dehashing($cookie);
 
     //토큰 서명 불일치
